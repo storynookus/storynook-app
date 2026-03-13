@@ -23,7 +23,7 @@ GCS_BUCKET = os.environ.get("GCS_BUCKET", "storyspark-uploads")
 
 # Init Gemini
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-2.0-flash-exp")
+model = genai.GenerativeModel("gemini-2.0-flash")
 
 # Init Vertex AI
 vertexai.init(project=GCP_PROJECT, location=GCP_LOCATION)
