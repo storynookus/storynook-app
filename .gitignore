@@ -10,4 +10,3 @@ dist/
 *.json
 service-account*.json
 .DS_Store
-frontend/src/firebase.js
