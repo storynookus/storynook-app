@@ -1,0 +1,279 @@
+.kid-selector {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #1a0a2e 0%, #2d1b4e 50%, #0d1b3e 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  overflow: hidden;
+}
+
+.kid-selector .stars-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.kid-selector .star {
+  position: absolute;
+  border-radius: 50%;
+  bottom: -20px;
+  top: auto !important;
+  animation: floatUp linear infinite;
+  opacity: 0;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  85% { opacity: 0.4; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+.ks-content {
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  z-index: 1;
+}
+
+.ks-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.ks-logo {
+  font-family: 'Baloo 2', cursive;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #FFD93D;
+}
+
+.ks-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: white;
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 40px;
+}
+
+.ks-title-highlight {
+  background: linear-gradient(135deg, #FFD93D, #FF6B6B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Kid Cards Grid */
+.ks-kids-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.ks-kids-grid.single {
+  justify-content: center;
+}
+
+.ks-kid-card {
+  position: relative;
+  background: rgba(255,255,255,0.08);
+  border: 3px solid rgba(255,255,255,0.15);
+  border-radius: 24px;
+  padding: 28px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 180px;
+  backdrop-filter: blur(10px);
+}
+
+.ks-kid-card:hover {
+  border-color: #FFD93D;
+  background: rgba(255,217,61,0.1);
+  transform: translateY(-6px);
+}
+
+.ks-selected {
+  border-color: #FFD93D !important;
+  background: rgba(255,217,61,0.15) !important;
+  box-shadow: 0 0 30px rgba(255,217,61,0.3);
+}
+
+.ks-delete-btn {
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: rgba(255,107,107,0.3);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+}
+.ks-delete-btn:hover { background: #FF6B6B; }
+
+.ks-kid-photo-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.ks-kid-photo {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(255,255,255,0.3);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.ks-kid-photo-placeholder {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF6B6B, #C77DFF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Baloo 2', cursive;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  border: 4px solid rgba(255,255,255,0.3);
+}
+
+.ks-check {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 30px; height: 30px;
+  background: #FFD93D;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #2D2D2D;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(255,217,61,0.5);
+}
+
+.ks-kid-name {
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.ks-kid-age {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+}
+
+/* Both Card */
+.ks-both-card {
+  background: rgba(255,255,255,0.06);
+  border: 3px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 28px;
+  backdrop-filter: blur(10px);
+}
+
+.ks-both-card:hover {
+  border-color: #6BCB77;
+  background: rgba(107,203,119,0.1);
+  transform: translateY(-3px);
+}
+
+.ks-both-card.ks-selected {
+  border-color: #6BCB77 !important;
+  background: rgba(107,203,119,0.15) !important;
+  box-shadow: 0 0 30px rgba(107,203,119,0.25);
+}
+
+.ks-both-photos { display: flex; align-items: center; }
+
+.ks-both-photo {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255,255,255,0.4);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.ks-both-photo-placeholder {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF6B6B, #C77DFF);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.4rem; font-weight: 800; color: white;
+  border: 3px solid rgba(255,255,255,0.4);
+}
+
+.ks-both-text { flex: 1; }
+.ks-both-label {
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.2rem; font-weight: 800; color: white;
+}
+.ks-both-names { font-size: 0.85rem; color: rgba(255,255,255,0.5); font-weight: 600; }
+.ks-both-check {
+  width: 32px; height: 32px;
+  background: #6BCB77;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: white; font-weight: 800;
+}
+
+/* Actions */
+.ks-actions { display: flex; flex-direction: column; gap: 12px; }
+
+.ks-continue-btn {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #FF6B6B, #FFB347);
+  border: none;
+  border-radius: 16px;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 8px 24px rgba(255,107,107,0.35);
+}
+.ks-continue-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,107,107,0.45); }
+.ks-continue-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.ks-add-btn {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.ks-add-btn:hover { border-color: rgba(255,255,255,0.5); color: white; }

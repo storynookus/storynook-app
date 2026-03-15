@@ -227,11 +227,11 @@ export default function StoryBook({ story, onRestart }) {
               <div>✅ Delivered in 5-7 days</div>
               <div>✅ Perfect gift for any occasion</div>
             </div>
-            <button className="btn-primary" style={{width:"100%", marginTop:"20px"}}>
-              Order Now — $25
+            <button className="modal-order-btn">
+              🛒 Order Now — $25
             </button>
-            <button className="modal-close" onClick={() => setShowBuyModal(false)}>
-              Maybe later
+            <button className="modal-maybe-btn" onClick={() => setShowBuyModal(false)}>
+              Maybe later 💭
             </button>
           </div>
         </div>
