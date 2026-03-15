@@ -40,7 +40,7 @@ def generate_image_with_imagen(prompt, retries=3):
     for attempt in range(retries):
         try:
             token = get_access_token()
-            url = f"https://us-central1-aiplatform.googleapis.com/v1/projects/{GCP_PROJECT}/locations/us-central1/publishers/google/models/imagen-4.0-fast-generate-001:predict"
+            url = f"https://us-central1-aiplatform.googleapis.com/v1/projects/{GCP_PROJECT}/locations/us-central1/publishers/google/models/imagen-4.0-generate-001:predict"
             payload = {
                 "instances": [{"prompt": prompt}],
                 "parameters": {
@@ -70,18 +70,21 @@ def generate_image_with_imagen(prompt, retries=3):
 def get_character_description(photo_base64):
     try:
         prompt = (
-            'Look at this child photo. Describe their appearance to create a Pixar-style '
-            'animated cartoon character. Use this format exactly: '
-            'a cute Pixar animated cartoon child character with [skin tone] skin, '
-            '[hair color and style] hair, [eye color] eyes. '
-            'Keep it under 25 words. Do not use the word real or photo.'
+            'Look at this child photo very carefully. Describe this specific child to recreate them as a cartoon character. '
+            'Include: (1) exact skin tone, (2) exact hair color, (3) exact hair length and texture (curly/straight/wavy/coily), '
+            '(4) approximate age, (5) any distinctive features. '
+            'Write ONE illustration prompt in this exact format: '
+            '"a [age]-year-old child cartoon character with [exact skin tone] skin, [exact hair description], [eye color] eyes, Pixar animation style, consistent character design". '
+            'Be very specific about hair. This MUST look like the child in the photo. Only output the illustration prompt.'
         )
         parts = [prompt, Part.from_data(data=base64.b64decode(photo_base64), mime_type="image/jpeg")]
         response = model.generate_content(parts)
-        return response.text.strip()
+        desc = response.text.strip()
+        print(f"Character desc: {desc}")
+        return desc
     except Exception as e:
         print(f"Appearance extraction failed: {e}")
-        return "a cute Pixar animated cartoon child character with warm skin and big expressive eyes"
+        return "a young child cartoon character in Pixar animation style"
 
 @app.route("/health", methods=["GET"])
 def health():
@@ -98,6 +101,7 @@ def generate_story():
         custom_prompt = data.get("customPrompt", "")
         language = data.get("language", "English")
         photo_base64 = data.get("photoBase64", None)
+        page_count = int(data.get("pageCount", 7))
 
         moral_description = MORAL_LESSONS.get(moral_key, moral_key)
 
@@ -107,10 +111,11 @@ def generate_story():
             character_desc = "a cute Pixar animated cartoon child character with big expressive eyes and a warm smile"
 
         print(f"Character description: {character_desc}")
+        print(f"Generating {page_count} pages")
 
         system_prompt = f"""You are StorySpark, a magical AI storyteller.
 
-Generate a 7-page storybook JSON for {child_name}, age {child_age}.
+Generate a {page_count}-page storybook JSON for {child_name}, age {child_age}.
 Topic: {interests}
 Moral: {moral_description}
 {f"Notes: {custom_prompt}" if custom_prompt else ""}
@@ -118,19 +123,24 @@ Language: {language}
 
 Return ONLY a JSON array. No markdown. No explanation. Just the array.
 
-Each of the 7 objects must have exactly these keys:
-- "page": number 1-7
-- "text": 3-4 engaging, vivid sentences for age {child_age}
-- "image_prompt": beautiful Pixar-style cartoon illustration showing {character_desc} named {child_name} as the hero in the scene. Colorful, warm golden lighting, whimsical storybook style, safe for children, highly detailed.
+Each object must have exactly these keys:
+- "page": number 1 to {page_count}
+- "text": 3-4 engaging vivid sentences for age {child_age}
+- "image_prompt": Pixar-style cartoon illustration. The MAIN CHARACTER must be {character_desc} named {child_name}. This EXACT character must appear in EVERY scene. Scene: [describe what is happening in this scene]. Colorful warm golden lighting, whimsical storybook style, safe for children, highly detailed. Character must look identical across all pages.
 
-Pages: 1=intro, 2-3=adventure begins, 4=climax challenge, 5-6=resolution learning {moral_description}, 7=happy ending"""
+Story structure across {page_count} pages:
+- First page: Introduction, meet {child_name} and their world
+- Middle pages: Rising action and adventure
+- Second to last page: Resolution, learning {moral_description}  
+- Last page: Happy ending and celebration
+
+Return ONLY the JSON array."""
 
         response = model.generate_content(system_prompt)
         raw = response.text.strip()
         raw = re.sub(r"```json\n?", "", raw)
         raw = re.sub(r"```\n?", "", raw)
         raw = raw.strip()
-
         start = raw.find("[")
         end = raw.rfind("]") + 1
         if start != -1 and end > start:
