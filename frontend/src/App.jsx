@@ -24,14 +24,7 @@ export default function App() {
     try {
       const savedKids = await getKids();
       setKids(savedKids);
-      const visited = localStorage.getItem("storyspark_visited");
-      if (!visited) {
-        setScreen("welcome");
-      } else if (savedKids.length === 0) {
-        setScreen("onboarding");
-      } else {
-        setScreen("kid_selector");
-      }
+      setScreen("welcome");
     } catch (err) {
       console.error("Init error:", err);
       setScreen("onboarding");
@@ -39,8 +32,11 @@ export default function App() {
   };
 
   const handleGetStarted = () => {
-    localStorage.setItem("storyspark_visited", "true");
-    setScreen("onboarding");
+    if (kids.length === 0) {
+      setScreen("onboarding");
+    } else {
+      setScreen("kid_selector");
+    }
   };
 
   const handleOnboardingDone = async () => {

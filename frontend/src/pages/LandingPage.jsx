@@ -83,6 +83,11 @@ export default function LandingPage({ selectedKids = [], onGenerate, onBack }) {
       language,
       photoBase64: primaryPhoto?.photo || null,
       pageCount,
+      kidsData: selectedKids.map(kid => ({
+        name: kid.name,
+        age: kid.age,
+        photo: kidPhotos[kid.id]?.photo || kid.photo || null,
+      })),
     });
   };
 
