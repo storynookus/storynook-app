@@ -90,7 +90,7 @@ export default function App() {
         <div style={{ textAlign: "center", color: "white" }}>
           <div style={{ fontSize: "4rem", marginBottom: "16px" }}>✨</div>
           <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: "1.5rem", fontWeight: 800 }}>
-            StorySpark
+            StoryNook
           </div>
         </div>
       </div>

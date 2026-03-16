@@ -22,7 +22,7 @@ export default function WelcomePage({ onGetStarted }) {
         {/* Logo */}
         <div className="welcome-logo">
           <span className="welcome-logo-icon">✨</span>
-          <span className="welcome-logo-text">StorySpark</span>
+          <span className="welcome-logo-text">StoryNook</span>
         </div>
 
         {/* Hero */}
@@ -38,25 +38,38 @@ export default function WelcomePage({ onGetStarted }) {
 
         {/* How it works */}
         <div className="welcome-steps">
-          <div className="welcome-step">
-            <div className="welcome-step-icon">📸</div>
-            <div className="welcome-step-text">
+          <div className="welcome-step-card">
+            <div className="welcome-step-img-wrap">
+              <img src="/step1.png" alt="Add your child" className="welcome-step-img" onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
+              <div className="welcome-step-img-placeholder" style={{display:"none"}}>📸</div>
+            </div>
+            <div className="welcome-step-label">
               <div className="welcome-step-title">Add your child</div>
               <div className="welcome-step-desc">Upload a photo and tell us about them</div>
             </div>
           </div>
+
           <div className="welcome-step-arrow">→</div>
-          <div className="welcome-step">
-            <div className="welcome-step-icon">✨</div>
-            <div className="welcome-step-text">
+
+          <div className="welcome-step-card">
+            <div className="welcome-step-img-wrap">
+              <img src="/step2.png" alt="AI generates" className="welcome-step-img" onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
+              <div className="welcome-step-img-placeholder" style={{display:"none"}}>✨</div>
+            </div>
+            <div className="welcome-step-label">
               <div className="welcome-step-title">AI generates</div>
               <div className="welcome-step-desc">Gemini writes a story, Imagen paints it</div>
             </div>
           </div>
+
           <div className="welcome-step-arrow">→</div>
-          <div className="welcome-step">
-            <div className="welcome-step-icon">📚</div>
-            <div className="welcome-step-text">
+
+          <div className="welcome-step-card">
+            <div className="welcome-step-img-wrap">
+              <img src="/step3.png" alt="Read together" className="welcome-step-img" onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
+              <div className="welcome-step-img-placeholder" style={{display:"none"}}>📚</div>
+            </div>
+            <div className="welcome-step-label">
               <div className="welcome-step-title">Read together</div>
               <div className="welcome-step-desc">A magical book just for your family</div>
             </div>

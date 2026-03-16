@@ -44,7 +44,7 @@ export default function OnboardingPage({ onDone, hasKids, onBack }) {
           {hasKids && (
             <button className="back-btn" onClick={onBack}>← Back</button>
           )}
-          <div className="onboarding-badge">✨ StorySpark</div>
+          <div className="onboarding-badge">✨ StoryNook</div>
         </div>
 
         <h1 className="onboarding-title">

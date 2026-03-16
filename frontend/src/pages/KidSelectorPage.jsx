@@ -58,7 +58,7 @@ export default function KidSelectorPage({ kids, onSelect, onAddKid, onKidsUpdate
 
       <div className="ks-content">
         <div className="ks-header">
-          <div className="ks-logo">✨ StorySpark</div>
+          <div className="ks-logo">✨ StoryNook</div>
         </div>
 
         <h1 className="ks-title">

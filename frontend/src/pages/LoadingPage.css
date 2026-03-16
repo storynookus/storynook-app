@@ -95,7 +95,7 @@
 
 .loading-msg {
   font-size: 1rem;
-  color: rgba(255,255,255,0.65);
+  color: white;
   margin-bottom: 32px;
   min-height: 24px;
   font-weight: 500;
@@ -121,7 +121,7 @@
   font-family: 'Nunito', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.5);
   transition: all 0.5s ease;
 }
 
@@ -139,4 +139,12 @@
   content: " ✓";
   color: #6BCB77;
   font-weight: 800;
+}
+
+.loading-stage {
+  font-size: 1rem;
+  color: white;
+  font-weight: 700;
+  font-family: 'Baloo 2', cursive;
+  margin-bottom: 8px;
 }
