@@ -68,7 +68,7 @@ Description         Per Page
 3. Maya's profile is already set up — select her
 4. Click "+ Add Another Child" → upload `leo-test-photo.jpg`, name "Leo", age 6
 5. Select both Maya and Leo → "All together!"
-6. Pick "Dinosaurs" as interest, "Kindness" as lesson
+6. Pick "Dinosaurs" as interest, "Kindness" as lesson Or any other option as you please!
 7. Hit "Create Maya & Leo's Story" and watch the magic! ✨
 
 ---
