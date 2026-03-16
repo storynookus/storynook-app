@@ -70,6 +70,7 @@ Description         Per Page
 5. Select both Maya and Leo → "All together!"
 6. Pick "Dinosaurs" as interest, "Kindness" as lesson Or any other option as you please!
 7. Hit "Create Maya & Leo's Story" and watch the magic! ✨
+8. After testing, please delete Leo's profile (click the X on his card) so the next judge starts fresh with just Maya! 🙏 Please and thank you!
 
 ---
 
