@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getKids } from "./kidsService";
 import OnboardingPage from "./pages/OnboardingPage";
+import WelcomePage from "./pages/WelcomePage";
 import KidSelectorPage from "./pages/KidSelectorPage";
 import LandingPage from "./pages/LandingPage";
 import StoryBook from "./pages/StoryBook";
@@ -9,6 +10,7 @@ import "./App.css";
 
 export default function App() {
   const [screen, setScreen] = useState("loading_app");
+  const [hasVisited, setHasVisited] = useState(false);
   const [kids, setKids] = useState([]);
   const [selectedKids, setSelectedKids] = useState([]);
   const [storyData, setStoryData] = useState(null);
@@ -22,7 +24,10 @@ export default function App() {
     try {
       const savedKids = await getKids();
       setKids(savedKids);
-      if (savedKids.length === 0) {
+      const visited = localStorage.getItem("storyspark_visited");
+      if (!visited) {
+        setScreen("welcome");
+      } else if (savedKids.length === 0) {
         setScreen("onboarding");
       } else {
         setScreen("kid_selector");
@@ -31,6 +36,11 @@ export default function App() {
       console.error("Init error:", err);
       setScreen("onboarding");
     }
+  };
+
+  const handleGetStarted = () => {
+    localStorage.setItem("storyspark_visited", "true");
+    setScreen("onboarding");
   };
 
   const handleOnboardingDone = async () => {
@@ -93,6 +103,9 @@ export default function App() {
 
   return (
     <div className="app">
+      {screen === "welcome" && (
+        <WelcomePage onGetStarted={handleGetStarted} />
+      )}
       {screen === "onboarding" && (
         <OnboardingPage
           onDone={handleOnboardingDone}

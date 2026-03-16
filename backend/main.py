@@ -19,7 +19,7 @@ GCP_LOCATION = os.environ.get("GCP_LOCATION", "us-central1")
 GCS_BUCKET = os.environ.get("GCS_BUCKET", "storyspark-uploads-490105")
 
 vertexai.init(project=GCP_PROJECT, location=GCP_LOCATION)
-model = GenerativeModel("gemini-2.0-flash")
+model = GenerativeModel("gemini-2.5-flash")
 
 MORAL_LESSONS = {
     "sharing": "learning that sharing with others makes everyone happier",

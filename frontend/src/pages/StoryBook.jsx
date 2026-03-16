@@ -132,31 +132,7 @@ export default function StoryBook({ story, onRestart }) {
                 <div className="page-role-label">{PAGE_ROLES[currentPage]}</div>
                 <p className="page-text">{currentPageData.text}</p>
 
-                {/* Kid co-creation on pages 3-5 */}
-                {currentPage >= 3 && currentPage <= 5 && (
-                  <div className="cocreate-section">
-                    <div className="cocreate-label">🎤 What happens next, {story?.childName}?</div>
-                    <div className="cocreate-input-row">
-                      <input
-                        className="cocreate-input"
-                        placeholder="Type or speak your idea..."
-                        value={kidInput}
-                        onChange={e => setKidInput(e.target.value)}
-                      />
-                      <button
-                        className={`mic-btn ${isListening ? "mic-active" : ""}`}
-                        onClick={startListening}
-                      >
-                        {isListening ? "🔴" : "🎤"}
-                      </button>
-                    </div>
-                    {kidInput && (
-                      <div className="cocreate-idea">
-                        💭 Great idea: "{kidInput}"
-                      </div>
-                    )}
-                  </div>
-                )}
+
               </div>
             </div>
           )}
