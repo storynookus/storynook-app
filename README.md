@@ -65,12 +65,12 @@ Description         Per Page
 **Suggested test flow:**
 1. Visit the live URL above
 2. Click "Start Your Story"
-3. Maya's profile is already set up — select her
-4. Click "+ Add Another Child" → upload `leo-test-photo.jpg`, name "Leo", age 6
-5. Select both Maya and Leo → "All together!"
-6. Pick "Dinosaurs" as interest, "Kindness" as lesson Or any other option as you please!
-7. Hit "Create Maya & Leo's Story" and watch the magic! ✨
-8. After testing, please delete Leo's profile (click the X on his card) so the next judge starts fresh with just Maya! 🙏 Please and thank you!
+3. Click "Add Your First Child" → upload `maya-test-photo.jpg` from the `/demo-assets/` folder, name "Maya", age 5 → Save
+4. You can now create a story just for Maya, or add another child...
+5. Click "+ Add Another Child" → upload `leo-test-photo.jpg`, name "Leo", age 6 → Save
+6. Select both Maya and Leo → "All together!" 🎉
+7. Pick "Dinosaurs" as interest, "Kindness" as lesson (or any option you like!)
+8. Hit "Create Maya & Leo's Story" and watch the magic! ✨
 
 ---
 
