@@ -9,13 +9,13 @@ import {
   View,
 } from 'react-native';
 
-export default function SignUpScreen() {
+export default function LoginScreen() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSignUp = async () => {
+  const handleLogin = async () => {
     if (!email.trim() || !password.trim()) return;
     setLoading(true);
     // TODO: hook up Firebase auth
@@ -41,8 +41,8 @@ export default function SignUpScreen() {
           <Text style={styles.logoText}>StoryNook</Text>
         </View>
 
-        <Text style={styles.title}>Create your{'\n'}<Text style={styles.titleHighlight}>account</Text></Text>
-        <Text style={styles.subtitle}>Start creating magical stories for your little ones.</Text>
+        <Text style={styles.title}>Welcome{'\n'}<Text style={styles.titleHighlight}>back!</Text></Text>
+        <Text style={styles.subtitle}>Log in to continue your magical stories.</Text>
 
         <View style={styles.form}>
           <View style={styles.inputWrap}>
@@ -62,7 +62,7 @@ export default function SignUpScreen() {
             <Text style={styles.inputLabel}>🔒 Password</Text>
             <TextInput
               style={styles.input}
-              placeholder="Min. 8 characters"
+              placeholder="Your password"
               placeholderTextColor="rgba(255,255,255,0.3)"
               value={password}
               onChangeText={setPassword}
@@ -70,11 +70,15 @@ export default function SignUpScreen() {
             />
           </View>
 
-          <TouchableOpacity style={styles.signUpBtn} onPress={handleSignUp} disabled={loading}>
+          <TouchableOpacity style={styles.forgotBtn}>
+            <Text style={styles.forgotText}>Forgot password?</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.loginBtn} onPress={handleLogin} disabled={loading}>
             {loading ? (
               <ActivityIndicator color="#1a0a2e" />
             ) : (
-              <Text style={styles.signUpText}>Sign Up ✨</Text>
+              <Text style={styles.loginBtnText}>Log In ✨</Text>
             )}
           </TouchableOpacity>
         </View>
@@ -92,8 +96,8 @@ export default function SignUpScreen() {
 
         <Text style={styles.note}>Free to try · No account required · Powered by Google Gemini & Imagen</Text>
 
-        <TouchableOpacity onPress={() => router.push('/login')}>
-          <Text style={styles.loginLink}>Already have an account? <Text style={styles.loginLinkHighlight}>Log In</Text></Text>
+        <TouchableOpacity onPress={() => router.push('/signuppage')}>
+          <Text style={styles.signupLink}>Don't have an account? <Text style={styles.signupLinkHighlight}>Sign Up</Text></Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -173,19 +177,27 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 15,
   },
-  signUpBtn: {
-    backgroundColor: '#FFFFFF',
+  forgotBtn: {
+    alignSelf: 'flex-end',
+  },
+  forgotText: {
+    color: '#C77DFF',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  loginBtn: {
+    backgroundColor: '#FFD93D',
     borderRadius: 30,
     paddingVertical: 16,
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 4,
     shadowColor: '#FFD93D',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.4,
     shadowRadius: 12,
     elevation: 8,
   },
-  signUpText: {
+  loginBtnText: {
     fontSize: 17,
     fontWeight: '800',
     color: '#1a0a2e',
@@ -238,11 +250,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 16,
   },
-  loginLink: {
+  signupLink: {
     fontSize: 14,
     color: 'rgba(255,255,255,0.5)',
   },
-  loginLinkHighlight: {
+  signupLinkHighlight: {
     color: '#C77DFF',
     fontWeight: '800',
   },
