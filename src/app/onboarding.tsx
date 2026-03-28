@@ -47,7 +47,7 @@ export default function OnboardingScreen() {
     setSaving(true);
     try {
       // TODO: hook up to Firebase saveKid()
-      router.push('/kid-selector');
+      router.push({ pathname: '/landing', params: { childName: name } });
     } catch (err) {
       Alert.alert('Error', err.message);
     }
