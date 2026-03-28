@@ -3,7 +3,6 @@ import { useEffect, useRef } from 'react';
 import {
   Animated,
   Dimensions,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -19,8 +18,9 @@ function Particle({ size, left, color, duration, delay }: {
 }) {
   const anim = useRef(new Animated.Value(0)).current;
 
-  useEffect(() => {
-    Animated.loop(
+    useEffect(() => {
+    const loop = () => {
+      anim.setValue(0);
       Animated.sequence([
         Animated.delay(delay),
         Animated.timing(anim, {
@@ -28,8 +28,9 @@ function Particle({ size, left, color, duration, delay }: {
           duration,
           useNativeDriver: true,
         }),
-      ])
-    ).start();
+      ]).start(() => loop());
+    };
+    loop();
   }, []);
 
   const translateY = anim.interpolate({
@@ -79,14 +80,13 @@ export default function WelcomeScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Floating particles */}
       <View style={StyleSheet.absoluteFill} pointerEvents="none">
         {particles.map(p => (
           <Particle key={p.id} size={p.size} left={p.left} color={p.color} duration={p.duration} delay={p.delay} />
         ))}
       </View>
 
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <View style={styles.content}>
         {/* Logo */}
         <View style={styles.logoRow}>
           <Text style={styles.logoIcon}>✨</Text>
@@ -120,6 +120,16 @@ export default function WelcomeScreen() {
           ))}
         </View>
 
+        {/* Auth buttons */}
+        <View style={styles.authRow}>
+          <TouchableOpacity style={styles.signUpBtn} onPress={() => router.push('/onboarding')}>
+            <Text style={styles.signUpText}>Sign Up</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.logInBtn} onPress={() => router.push('/onboarding')}>
+            <Text style={styles.logInText}>Log In</Text>
+          </TouchableOpacity>
+        </View>
+
         {/* CTA */}
         <TouchableOpacity style={styles.cta} onPress={() => router.push('/onboarding')}>
           <Text style={styles.ctaText}>Start Your Story ✨</Text>
@@ -128,7 +138,7 @@ export default function WelcomeScreen() {
         <Text style={styles.note}>
           Free to try · No account required · Powered by Google Gemini & Imagen
         </Text>
-      </ScrollView>
+      </View>
     </View>
   );
 }
@@ -139,20 +149,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a0a2e',
   },
   content: {
+    flex: 1,
     alignItems: 'center',
-    paddingHorizontal: 24,
+    paddingHorizontal: 12,
     paddingTop: 70,
-    paddingBottom: 48,
+    paddingBottom: 24,
+    justifyContent: 'space-between',
   },
   logoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 32,
     gap: 8,
   },
-  logoIcon: {
-    fontSize: 28,
-  },
+  logoIcon: { fontSize: 28 },
   logoText: {
     fontSize: 28,
     fontWeight: '800',
@@ -165,74 +174,101 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     lineHeight: 42,
-    marginBottom: 16,
   },
-  titleHighlight: {
-    color: '#FFD93D',
-  },
+  titleHighlight: { color: '#FFD93D' },
   subtitle: {
-    fontSize: 16,
+    fontSize: 15,
     color: 'rgba(255,255,255,0.75)',
     textAlign: 'center',
-    lineHeight: 24,
-    marginBottom: 40,
+    lineHeight: 22,
     maxWidth: 320,
   },
   stepsRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 40,
-    flexWrap: 'wrap',
-    gap: 8,
+    gap: 4,
   },
   stepWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 4,
   },
   stepCard: {
     backgroundColor: 'rgba(255,255,255,0.08)',
     borderRadius: 16,
-    padding: 16,
+    padding: 12,
     alignItems: 'center',
-    width: 100,
+    width: 105,
+    minHeight: 175,
+    justifyContent: 'center',
   },
   stepImgWrap: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     backgroundColor: 'rgba(255,255,255,0.12)',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginBottom: 8,
   },
-  stepEmoji: {
-    fontSize: 28,
-  },
+  stepEmoji: { fontSize: 24 },
   stepTitle: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
     color: '#fff',
     textAlign: 'center',
     marginBottom: 4,
   },
   stepDesc: {
-    fontSize: 10,
+    fontSize: 9,
     color: 'rgba(255,255,255,0.6)',
     textAlign: 'center',
-    lineHeight: 14,
+    lineHeight: 13,
   },
   arrow: {
-    fontSize: 20,
+    fontSize: 14,
     color: 'rgba(255,255,255,0.4)',
+    paddingHorizontal: 4,
+  },
+  authRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  signUpBtn: {
+    backgroundColor: '#C77DFF',
+    borderRadius: 30,
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    shadowColor: '#C77DFF',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    elevation: 6,
+  },
+  signUpText: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#fff',
+  },
+  logInBtn: {
+    backgroundColor: 'rgba(255,255,255,0.12)',
+    borderRadius: 30,
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderWidth: 1.5,
+    borderColor: 'rgba(255,255,255,0.3)',
+  },
+  logInText: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#fff',
   },
   cta: {
     backgroundColor: '#FFD93D',
     borderRadius: 30,
     paddingVertical: 16,
     paddingHorizontal: 48,
-    marginBottom: 16,
     shadowColor: '#FFD93D',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.4,
