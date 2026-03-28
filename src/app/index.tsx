@@ -18,7 +18,7 @@ function Particle({ size, left, color, duration, delay }: {
 }) {
   const anim = useRef(new Animated.Value(0)).current;
 
-    useEffect(() => {
+  useEffect(() => {
     const loop = () => {
       anim.setValue(0);
       Animated.sequence([
@@ -87,13 +87,11 @@ export default function WelcomeScreen() {
       </View>
 
       <View style={styles.content}>
-        {/* Logo */}
         <View style={styles.logoRow}>
           <Text style={styles.logoIcon}>✨</Text>
           <Text style={styles.logoText}>StoryNook</Text>
         </View>
 
-        {/* Hero */}
         <Text style={styles.title}>
           Every child deserves{'\n'}
           <Text style={styles.titleHighlight}>to be the hero</Text>
@@ -104,7 +102,6 @@ export default function WelcomeScreen() {
           with illustrations that actually look like them.
         </Text>
 
-        {/* Steps */}
         <View style={styles.stepsRow}>
           {STEPS.map((step, i) => (
             <View key={i} style={styles.stepWrapper}>
@@ -122,15 +119,14 @@ export default function WelcomeScreen() {
 
         {/* Auth buttons */}
         <View style={styles.authRow}>
-          <TouchableOpacity style={styles.signUpBtn} onPress={() => router.push('/onboarding')}>
+          <TouchableOpacity style={styles.signUpBtn} onPress={() => router.push('/signuppage')}>
             <Text style={styles.signUpText}>Sign Up</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.logInBtn} onPress={() => router.push('/onboarding')}>
+          <TouchableOpacity style={styles.logInBtn} onPress={() => router.push('/login')}>
             <Text style={styles.logInText}>Log In</Text>
           </TouchableOpacity>
         </View>
 
-        {/* CTA */}
         <TouchableOpacity style={styles.cta} onPress={() => router.push('/onboarding')}>
           <Text style={styles.ctaText}>Start Your Story ✨</Text>
         </TouchableOpacity>
