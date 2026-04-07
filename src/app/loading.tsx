@@ -4,8 +4,7 @@ import LoadingScreen from './LoadingScreen';
 import { storyStore } from './storyStore';
 import * as FileSystem from 'expo-file-system';
 
-const BACKEND_URL = process.env.EXPO_PRIVATE_BACKEND_URL!;
-const TOKEN = process.env.EXPO_PRIVATE_BACKEND_TOKEN!;
+const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
 export default function LoadingPage() {
   const router = useRouter();
@@ -34,6 +33,10 @@ export default function LoadingPage() {
   useEffect(() => {
     const fetchStory = async () => {
       try {
+        if (!BACKEND_URL) {
+          throw new Error('EXPO_PUBLIC_BACKEND_URL is not configured');
+        }
+
         let photoBase64 = null;
         if (photoUri) {
           try {
@@ -50,7 +53,6 @@ export default function LoadingPage() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${TOKEN}`
           },
           body: JSON.stringify({
             childName:    childName    || 'Your Child',
