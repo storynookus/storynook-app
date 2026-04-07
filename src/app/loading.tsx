@@ -4,7 +4,8 @@ import LoadingScreen from './LoadingScreen';
 import { storyStore } from './storyStore';
 import * as FileSystem from 'expo-file-system';
 
-const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL!;
+const BACKEND_URL = process.env.EXPO_PRIVATE_BACKEND_URL!;
+const TOKEN = process.env.EXPO_PRIVATE_BACKEND_TOKEN!;
 
 export default function LoadingPage() {
   const router = useRouter();
@@ -47,7 +48,10 @@ export default function LoadingPage() {
 
         const response = await fetch(`${BACKEND_URL}/api/generate-story`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${TOKEN}`
+          },
           body: JSON.stringify({
             childName:    childName    || 'Your Child',
             childAge:     childAge     || '5',
