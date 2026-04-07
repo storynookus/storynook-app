@@ -123,6 +123,8 @@ export default function LandingScreen() {
   const router    = useRouter();
   const params    = useLocalSearchParams();
   const childName = (params.childName as string) || 'Your Child';
+  const childAge = (params.childAge as string) || '5';
+  const photoUri = (params.photoUri as string) || '';
 
   const [interests,         setInterests]         = useState('');
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
@@ -141,7 +143,7 @@ export default function LandingScreen() {
     const allInterests = [...selectedInterests, ...(interests ? [interests] : [])].join(', ') || 'adventure and friendship';
     router.push({
       pathname: '/loading',
-      params: { childName, interests: allInterests, moral: selectedMoral, customLesson, language, pageCount: String(pageCount) },
+      params: { childName, childAge, photoUri, interests: allInterests, moral: selectedMoral, customLesson, language, pageCount: String(pageCount) },
     });
   };
 

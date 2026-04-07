@@ -1,4 +1,5 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
+import { storyStore } from './storyStore';
 import { useRef, useState } from 'react';
 import {
   Animated,
@@ -200,17 +201,19 @@ function ShareModal({ visible, childName, onClose }: { visible: boolean; childNa
 // ─── Main Route ───────────────────────────────────────────────────────────────
 export default function StorybookPage() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ story: string }>();
+
+  // Read from in-memory store — avoids Expo Router param size limits
+  const parsed = storyStore.get();
 
   let story: Story;
-  try {
-    story = params.story ? JSON.parse(params.story) : null;
-  } catch {
-    story = null as any;
-  }
-
-  // Fallback so UI works before backend is wired up
-  if (!story) {
+  if (parsed?.success && parsed?.story?.length > 0) {
+    story = {
+      childName: parsed.childName,
+      moral:     parsed.moral,
+      language:  parsed.language,
+      story:     parsed.story,
+    };
+  } else {
     story = {
       childName: 'Your Child',
       moral: 'kindness',
