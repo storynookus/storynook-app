@@ -46,7 +46,7 @@ export default function LoadingPage() {
           }
         }
 
-        const response = await fetch(`${BACKEND_URL}/api/generate-story`, {
+        const response = await fetch(`${BACKEND_URL}/generate-story`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
