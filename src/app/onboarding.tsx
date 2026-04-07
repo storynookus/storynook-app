@@ -19,7 +19,7 @@ export default function OnboardingScreen() {
   const router = useRouter();
   const [name, setName] = useState('');
   const [age, setAge] = useState('5');
-  const [photoUri, setPhotoUri] = useState(null);
+  const [photoUri, setPhotoUri] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
   const handlePhoto = async () => {
@@ -47,8 +47,8 @@ export default function OnboardingScreen() {
     setSaving(true);
     try {
       // TODO: hook up to Firebase saveKid()
-      router.push({ pathname: '/landing', params: { childName: name } });
-    } catch (err) {
+      router.push({ pathname: '/landing' as any, params: { childName: name, childAge: age, photoUri: photoUri || '' } });
+    } catch (err: any) {
       Alert.alert('Error', err.message);
     }
     setSaving(false);
